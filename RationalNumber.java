@@ -1,16 +1,22 @@
-public class RationalNumber extends RealNumber {
+public class RationalNumber extends Number {
+  public static void main (String[] args) {}
+
   private int numerator;
   private int denominator;
 
   public RationalNumber(int nume, int deno) {
-    super( ((double)nume) / deno);
     if (deno == 0){
       numerator = 0;
-      denominator = nume;
+      denominator = 1;
+    }
+    else if (deno < 0 && nume > 0) {
+      numerator = nume * -1;
+      denominator = deno * -1;
     }
     else {
       numerator = nume;
       denominator = deno;
+      reduce();
     }
   }
 
@@ -50,7 +56,7 @@ public class RationalNumber extends RealNumber {
   }
 
   public static int gcd(int a, int b) {
-    int gcd = 0;
+    int gcd = 1;
 
     for(int i = 1; i <= a && i <= b; i++) {
       if (a%i==0 && b%i==0) {
@@ -61,14 +67,16 @@ public class RationalNumber extends RealNumber {
   }
 
   public void reduce() {
-    int gcdVal = gcd(numerator, denominator);
-    numerator = numerator / gcdVal;
-    denominator = denominator / gcdVal;
+    int gcdVal = gcd(Math.abs(numerator), Math.abs(denominator));
+    int newNum = numerator / gcdVal;
+    int newDem = denominator / gcdVal;
+    numerator = newNum;
+    denominator = newDem;
   }
 
   public RationalNumber multiply(RationalNumber other) {
-    int newNum = (this.getNumerator()) * (other.getNumerator());
-    int newDem = (this.getDenominator()) * (other.getDenominator());
+    int newNum = this.getNumerator() * other.getNumerator();
+    int newDem = this.getDenominator() * other.getDenominator();
     RationalNumber product = new RationalNumber(newNum, newDem);
     return product;
   }
