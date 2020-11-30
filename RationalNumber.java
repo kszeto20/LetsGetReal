@@ -52,7 +52,15 @@ public class RationalNumber extends Number {
   }
 
   public String toString() {
-    return "" + numerator + "/" + denominator;
+    if (denominator == 1) {
+      return (numerator + "");
+    }
+    else if (numerator == 0) {
+      return "0";
+    }
+    else {
+      return ("" + numerator + "/" + denominator);
+    }
   }
 
   public static int gcd(int a, int b) {
